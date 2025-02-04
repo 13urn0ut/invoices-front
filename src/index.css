@@ -36,3 +36,15 @@
 .error-large {
   @apply text-red-500 text-xl;
 }
+
+.invoices-header {
+  @apply flex gap-10 items-center w-max mx-auto mt-10;
+
+  h1 {
+    @apply text-2xl font-bold;
+  }
+}
+
+.card {
+  @apply w-max mx-auto mt-10 text-gray-600 flex gap-4 bg-gray-500 text-white p-4 rounded-md shadow-md;
+}

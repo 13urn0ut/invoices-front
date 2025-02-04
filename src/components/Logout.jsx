@@ -1,11 +1,13 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import { useEffect, useState, useContext } from "react";
+import UserContext from "../contexts/UserContext";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 const Logout = () => {
   const [error, setError] = useState(null);
+  const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -16,6 +18,7 @@ const Logout = () => {
         });
 
         setError(null);
+        setUser(null);
         navigate("/login");
       } catch (err) {
         if (axios.isAxiosError(err)) {
@@ -28,7 +31,7 @@ const Logout = () => {
           setError("An error occurred");
         }
 
-        navigate("/login");
+        // navigate("/login");
       }
     };
 
