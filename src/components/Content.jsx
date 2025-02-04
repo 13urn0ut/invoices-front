@@ -6,8 +6,6 @@ const Content = () => {
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
 
-  console.log(user);
-
   useEffect(() => {
     if (!user) {
       navigate("/login");
