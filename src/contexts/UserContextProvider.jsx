@@ -6,6 +6,8 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 const UserContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // if (user) return;
@@ -18,8 +20,13 @@ const UserContextProvider = ({ children }) => {
         // console.log(result);
 
         setUser(result.data);
+        setError(null);
       } catch (err) {
         console.log(err);
+        setError("An error occurred");
+        setUser(null);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -27,7 +34,7 @@ const UserContextProvider = ({ children }) => {
   }, []);
 
   return (
-    <UserContext.Provider value={{ user, setUser }}>
+    <UserContext.Provider value={{ user, setUser, error, setError, loading }}>
       {children}
     </UserContext.Provider>
   );

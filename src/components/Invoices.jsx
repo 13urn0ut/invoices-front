@@ -1,6 +1,6 @@
 import {
   useContext,
-  //  useEffect
+   useEffect
 } from "react";
 import { useNavigate } from "react-router";
 import InvoiceCard from "./InvoiceCard";
@@ -10,15 +10,12 @@ const Content = () => {
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   if (!user) {
-  //     navigate("/login");
-  //   }
-  // }, [user, navigate]);
+  useEffect(() => {
+    if (!user) {
+      navigate("/login");
+    }
+  }, []);
 
-  if (!user) {
-    navigate("/login");
-  }
   return (
     <>
       <header className="invoices-header">
