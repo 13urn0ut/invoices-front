@@ -7,7 +7,10 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 const Logout = () => {
   const [error, setError] = useState(null);
-  const { user, setUser } = useContext(UserContext);
+  const {
+    // user,
+    setUser,
+  } = useContext(UserContext);
   const navigate = useNavigate();
 
   useEffect(() => {

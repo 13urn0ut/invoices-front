@@ -13,7 +13,10 @@ const LoginForm = () => {
     formState: { errors },
   } = useForm();
   const [error, setError] = useState(null);
-  const { user, setUser } = useContext(UserContext);
+  const {
+    // user,
+    setUser,
+  } = useContext(UserContext);
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
@@ -55,7 +58,6 @@ const LoginForm = () => {
             id="email"
             {...register("email", { required: true })}
             // placeholder="Email"
-            der="Email"
           />
           {errors.email && (
             <p className="error-small">This field is required</p>
@@ -79,7 +81,7 @@ const LoginForm = () => {
         <button type="submit">Login</button>
       </form>
       <div className="link">
-        <p>Don't have an account?</p> <Link to="/signup">Sign up</Link>
+        <p>Don&apos;t have an account?</p> <Link to="/signup">Sign up</Link>
       </div>
     </div>
   );

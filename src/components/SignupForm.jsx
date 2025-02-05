@@ -14,7 +14,10 @@ const SignupForm = () => {
   } = useForm();
 
   const [error, setError] = useState(null);
-  const { user, setUser } = useContext(UserContext);
+  const {
+    // user,
+    setUser,
+  } = useContext(UserContext);
 
   const onSubmit = async (data) => {
     console.log(data);
