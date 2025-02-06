@@ -45,7 +45,7 @@ const Content = () => {
     };
 
     fetchData();
-  }, [user, navigate, filter]);
+  }, [user, navigate, filter, showBoundary]);
 
   return (
     <>
