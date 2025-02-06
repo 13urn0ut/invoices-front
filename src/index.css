@@ -1,7 +1,8 @@
 @import "tailwindcss";
 
 .signup,
-.login {
+.login,
+.invoice-form {
   @apply w-max mx-auto mt-10 text-gray-600;
 
   form {
@@ -12,7 +13,7 @@
     }
 
     input {
-      @apply block p-2 border border-gray-300 rounded-md;
+      @apply block p-2 border border-gray-300 rounded-md w-full;
     }
 
     button {

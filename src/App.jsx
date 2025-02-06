@@ -10,6 +10,7 @@ const Content = lazy(() => import("./components/Invoices"));
 const Logout = lazy(() => import("./components/Logout"));
 const ProtectedRoute = lazy(() => import("./components/ProtectedRoute"));
 const ErrorToast = lazy(() => import("./components/ErrorToast"));
+const NewInvoiceForm = lazy(() => import("./components/NewInvoiceForm"));
 
 function App() {
   return (
@@ -27,6 +28,9 @@ function App() {
                 </ProtectedRoute>
               }
             />
+            <Route path="/newInvoice" element={<ProtectedRoute>
+              <NewInvoiceForm />
+            </ProtectedRoute>} />
             <Route path="/signup" element={<SignupForm />} />
             <Route path="/login" element={<LoginForm />} />
             <Route path="/logout" element={<Logout />} />

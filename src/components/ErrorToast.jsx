@@ -1,7 +1,11 @@
 import toast from "react-hot-toast";
 
 const ErrorToast = ({ error, resetErrorBoundary }) => {
-  toast.error(error.message, { duration: 3000, position: "top-center" });
+  toast.error(error.message, {
+    duration: 3000,
+    position: "top-center",
+    id: "error",
+  });
 
   return (
     <>
