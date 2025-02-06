@@ -14,7 +14,7 @@ const Content = () => {
     if (!user) {
       navigate("/login");
     }
-  }, []);
+  }, [user, navigate]);
 
   return (
     <>

@@ -1,28 +1,38 @@
 import { Route, Routes } from "react-router";
-import Navbar from "./components/Navbar";
-import SignupForm from "./components/SignupForm";
-import LoginForm from "./components/LoginForm";
-import Content from "./components/Invoices";
-import Logout from "./components/Logout";
-import ProtectedRoute from "./components/ProtectedRoute";
+import { ErrorBoundary } from "react-error-boundary";
+import { Toaster } from "react-hot-toast";
+import { Suspense, lazy } from "react";
+
+const Navbar = lazy(() => import("./components/Navbar"));
+const SignupForm = lazy(() => import("./components/SignupForm"));
+const LoginForm = lazy(() => import("./components/LoginForm"));
+const Content = lazy(() => import("./components/Invoices"));
+const Logout = lazy(() => import("./components/Logout"));
+const ProtectedRoute = lazy(() => import("./components/ProtectedRoute"));
+const ErrorToast = lazy(() => import("./components/ErrorToast"));
 
 function App() {
   return (
     <>
-      <Navbar />
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <ProtectedRoute>
-              <Content />
-            </ProtectedRoute>
-          }
-        />
-        <Route path="/signup" element={<SignupForm />} />
-        <Route path="/login" element={<LoginForm />} />
-        <Route path="/logout" element={<Logout />} />
-      </Routes>
+      <Toaster position="top-center" />
+      <ErrorBoundary FallbackComponent={ErrorToast}>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Navbar />
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <ProtectedRoute>
+                  <Content />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="/signup" element={<SignupForm />} />
+            <Route path="/login" element={<LoginForm />} />
+            <Route path="/logout" element={<Logout />} />
+          </Routes>
+        </Suspense>
+      </ErrorBoundary>
     </>
   );
 }

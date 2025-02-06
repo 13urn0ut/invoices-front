@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useNavigate } from "react-router";
 import { useEffect, useState, useContext } from "react";
+import { useErrorBoundary } from "react-error-boundary";
 import UserContext from "../contexts/UserContext";
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -12,6 +13,8 @@ const Logout = () => {
     setUser,
   } = useContext(UserContext);
   const navigate = useNavigate();
+
+  const {showBoundary} = useErrorBoundary();
 
   useEffect(() => {
     const logout = async () => {
@@ -34,6 +37,8 @@ const Logout = () => {
           setError("An error occurred");
         }
 
+        
+        showBoundary();
         // navigate("/login");
       }
     };

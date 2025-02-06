@@ -1,8 +1,10 @@
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useContext, useState } from "react";
-import UserContext from "../contexts/UserContext";
 import { useNavigate, Link } from "react-router";
+import { useErrorBoundary } from "react-error-boundary";
+import { toast } from "react-hot-toast";
+import UserContext from "../contexts/UserContext";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -19,6 +21,8 @@ const LoginForm = () => {
   } = useContext(UserContext);
   const navigate = useNavigate();
 
+  const { showBoundary } = useErrorBoundary();
+
   const onSubmit = async (data) => {
     try {
       const { data: result } = await axios.post(
@@ -31,18 +35,26 @@ const LoginForm = () => {
 
       setError(null);
       setUser(result.data);
+      toast.success("Login successful");
 
       navigate("/");
     } catch (err) {
+      console.log(err);
+
       if (axios.isAxiosError(err)) {
         if (err.response) {
           setError(err.response.data.message);
+          showBoundary(err.response.data);
         } else {
           setError("An error occurred");
+          showBoundary(err);
         }
       } else {
         setError("An error occurred");
+        showBoundary(err);
       }
+
+      
     }
   };
 

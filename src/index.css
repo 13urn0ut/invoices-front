@@ -46,5 +46,5 @@
 }
 
 .card {
-  @apply w-max mx-auto mt-10 text-gray-600 flex gap-4 bg-gray-500 text-white p-4 rounded-md shadow-md;
+  @apply w-max mx-auto mt-10 text-white flex gap-4 bg-gray-500 p-4 rounded-md shadow-md;
 }

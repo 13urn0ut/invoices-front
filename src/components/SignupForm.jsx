@@ -1,8 +1,9 @@
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useContext, useState } from "react";
-import UserContext from "../contexts/UserContext";
 import { Link } from "react-router";
+import { useErrorBoundary } from "react-error-boundary";
+import UserContext from "../contexts/UserContext";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -18,6 +19,8 @@ const SignupForm = () => {
     // user,
     setUser,
   } = useContext(UserContext);
+
+  const {showBoundary} = useErrorBoundary();
 
   const onSubmit = async (data) => {
     console.log(data);
@@ -43,6 +46,8 @@ const SignupForm = () => {
       } else {
         setError("An error occurred");
       }
+
+      showBoundary();
     }
   };
 
