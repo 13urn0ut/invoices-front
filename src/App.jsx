@@ -34,6 +34,10 @@ function App() {
             <Route element={<ProtectedRoute />}>
               <Route path="/" element={<Content />} />
               <Route path="/newInvoice" element={<InvoiceForm />} />
+              <Route
+                path="/editInvoice"
+                element={<InvoiceForm mode={"edit"} />}
+              />
             </Route>
             <Route path="/signup" element={<SignupForm />} />
             <Route path="/login" element={<LoginForm />} />

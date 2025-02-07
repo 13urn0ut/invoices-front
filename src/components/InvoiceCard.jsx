@@ -1,4 +1,11 @@
+import { useNavigate } from "react-router";
+import { useContext } from "react";
+import InvoiceContext from "../contexts/InvoiceContext";
+
 const InvoiceCard = ({ invoice }) => {
+  const navigate = useNavigate();
+  const { setInvoice } = useContext(InvoiceContext);
+
   return (
     <>
       <article className="card">
@@ -7,7 +14,12 @@ const InvoiceCard = ({ invoice }) => {
         <p>{`${invoice.first_name} ${invoice.last_name}`}</p>
         <p>{invoice.amount}</p>
         <button>{invoice.status}</button>
-        <button>{`>`}</button>
+        <button
+          onClick={() => {
+            setInvoice(invoice);
+            navigate("/editInvoice");
+          }}
+        >{`>`}</button>
       </article>
     </>
   );
