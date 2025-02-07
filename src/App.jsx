@@ -10,7 +10,7 @@ const Content = lazy(() => import("./components/Invoices"));
 const Logout = lazy(() => import("./components/Logout"));
 const ProtectedRoute = lazy(() => import("./components/ProtectedRoute"));
 const ErrorToast = lazy(() => import("./components/ErrorToast"));
-const NewInvoiceForm = lazy(() => import("./components/NewInvoiceForm"));
+const InvoiceForm = lazy(() => import("./components/InvoiceForm"));
 
 function App() {
   return (
@@ -20,7 +20,7 @@ function App() {
         <Suspense fallback={<div>Loading...</div>}>
           <Navbar />
           <Routes>
-            <Route
+            {/* <Route
               path="/"
               element={
                 <ProtectedRoute>
@@ -29,8 +29,12 @@ function App() {
               }
             />
             <Route path="/newInvoice" element={<ProtectedRoute>
-              <NewInvoiceForm />
-            </ProtectedRoute>} />
+              <InvoiceForm />
+            </ProtectedRoute>} /> */}
+            <Route element={<ProtectedRoute />}>
+              <Route path="/" element={<Content />} />
+              <Route path="/newInvoice" element={<InvoiceForm />} />
+            </Route>
             <Route path="/signup" element={<SignupForm />} />
             <Route path="/login" element={<LoginForm />} />
             <Route path="/logout" element={<Logout />} />

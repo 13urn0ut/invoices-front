@@ -7,7 +7,7 @@ import UserContext from "../contexts/UserContext";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-const NewInvoiceForm = () => {
+const InvoiceForm = () => {
   const {
     register,
     handleSubmit,
@@ -77,4 +77,4 @@ const NewInvoiceForm = () => {
   );
 };
 
-export default NewInvoiceForm;
+export default InvoiceForm;
