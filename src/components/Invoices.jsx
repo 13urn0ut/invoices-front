@@ -10,7 +10,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 const Content = () => {
   const [error, setError] = useState(null);
   const [invoices, setInvoices] = useState([]);
-  const [filter, setFilter] = useState(null);
+  const [filter, setFilter] = useState({ page: 1, limit: 10 });
   const { user } = useContext(UserContext);
   const { showBoundary } = useErrorBoundary();
   const navigate = useNavigate();
@@ -23,7 +23,9 @@ const Content = () => {
     const fetchData = async () => {
       try {
         const { data: result } = await axios.get(
-          `${API_URL}/invoices${filter ? `?status=${filter}` : ""}`,
+          `${API_URL}/invoices?page=${filter.page}&limit=${filter.limit}${
+            filter?.status ? `&status=${filter.status}` : ""
+          }`,
           {
             withCredentials: true,
           }
@@ -58,13 +60,17 @@ const Content = () => {
           <h1>Invoices</h1>
           <p>
             there{" "}
-            {invoices.length === 1
-              ? `is ${invoices.length || "no"} invoice`
-              : `are ${invoices.length || "no"} invoices`}
+            {invoices.count === 1
+              ? `is ${invoices.count || "no"} invoice`
+              : `are ${invoices.count || "no"} invoices`}
           </p>
         </div>
         <select
-          onChange={(e) => setFilter(e.target.value)}
+          onChange={(e) =>
+            setFilter((prev) => {
+              return { ...prev, status: e.target.value };
+            })
+          }
           name="status"
           id="status"
         >
@@ -80,13 +86,46 @@ const Content = () => {
       </header>
 
       <div className="error-large mx-auto w-max mt-8">{error}</div>
-
       {!error && (
-        <div className="invoices-list">
-          {invoices.map((invoice) => (
-            <InvoiceCard key={invoice?.id} invoice={invoice} />
-          ))}
-        </div>
+        <>
+          <div className="invoices-list">
+            {invoices.invoices?.map((invoice) => (
+              <InvoiceCard key={invoice?.id} invoice={invoice} />
+            ))}
+          </div>
+
+          <div className="pagination flex items-center justify-between px-6 mt-4">
+            <button
+              onClick={() => {
+                setFilter((prev) => {
+                  return { ...prev, page: prev.page - 1 || 1 };
+                });
+              }}
+            >
+              {`<< Prev`}
+            </button>
+
+            <p>{`Page ${filter.page} of ${Math.ceil(
+              invoices.count / filter.limit
+            )}`}</p>
+
+            <button
+              onClick={() => {
+                setFilter((prev) => {
+                  return {
+                    ...prev,
+                    page:
+                      prev.page + 1 > Math.ceil(invoices.count / prev.limit)
+                        ? Math.ceil(invoices.count / prev.limit)
+                        : prev.page + 1,
+                  };
+                });
+              }}
+            >
+              {`Next >>`}
+            </button>
+          </div>
+        </>
       )}
     </section>
   );

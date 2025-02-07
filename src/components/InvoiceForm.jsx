@@ -24,7 +24,6 @@ const InvoiceForm = ({ mode }) => {
   const createEditInvoice = async (data) => {
     try {
       if (mode === "edit") {
-        console.log(data);
 
         await axios.patch(`${API_URL}/invoices/${invoice.id}`, data, {
           withCredentials: true,
