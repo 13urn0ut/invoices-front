@@ -68,7 +68,7 @@ const Content = () => {
         <select
           onChange={(e) =>
             setFilter((prev) => {
-              return { ...prev, status: e.target.value };
+              return { ...prev, status: e.target.value, page: 1 };
             })
           }
           name="status"
