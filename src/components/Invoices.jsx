@@ -22,9 +22,12 @@ const Content = () => {
 
     const fetchData = async () => {
       try {
-        const { data: result } = await axios.get(`${API_URL}/invoices${filter ? `?status=${filter}` : ""}`, {
-          withCredentials: true,
-        });
+        const { data: result } = await axios.get(
+          `${API_URL}/invoices${filter ? `?status=${filter}` : ""}`,
+          {
+            withCredentials: true,
+          }
+        );
 
         setInvoices(result.data);
         setError(null);
@@ -32,15 +35,16 @@ const Content = () => {
         if (axios.isAxiosError(err)) {
           if (err.response) {
             setError(err.response.data.message);
-            showBoundary(err.response.data);
+            // showBoundary(err.response.data);
           } else {
             setError("An error occurred");
-            showBoundary(err);
+            // showBoundary(err);
           }
         } else {
           setError("An error occurred");
-          showBoundary(err);
+          // showBoundary(err);
         }
+        setInvoices([]);
       }
     };
 
@@ -49,13 +53,16 @@ const Content = () => {
 
   return (
     <>
-      <div>{error}</div>
       <header className="invoices-header">
         <div>
           <h1>Invoices</h1>
-          <p>there are no invoices</p>
+          <p>there are {invoices.length || "no"} invoices</p>
         </div>
-        <select onChange={e => setFilter(e.target.value)} name="status" id="status">
+        <select
+          onChange={(e) => setFilter(e.target.value)}
+          name="status"
+          id="status"
+        >
           <option value="">Filter by status</option>
           <option value="draft">Draft</option>
           <option value="pending">Pending</option>
@@ -67,11 +74,15 @@ const Content = () => {
         </div>
       </header>
 
-      <div>
-        {invoices.map((invoice) => (
-          <InvoiceCard key={invoice?.id} invoice={invoice} />
-        ))}
-      </div>
+      <div className="error-large mx-auto w-max mt-8">{error}</div>
+
+      {!error && (
+        <div>
+          {invoices.map((invoice) => (
+            <InvoiceCard key={invoice?.id} invoice={invoice} />
+          ))}
+        </div>
+      )}
     </>
   );
 };

@@ -21,8 +21,6 @@ const InvoiceForm = ({ mode }) => {
   const { user } = useContext(UserContext);
   const { invoice } = useContext(InvoiceContext);
 
-  console.log(mode, invoice);
-
   const createEditInvoice = async (data) => {
     try {
       if (mode === "edit") {
