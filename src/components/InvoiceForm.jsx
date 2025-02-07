@@ -7,7 +7,7 @@ import UserContext from "../contexts/UserContext";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-const InvoiceForm = () => {
+const InvoiceForm = ({mode}) => {
   const {
     register,
     handleSubmit,
@@ -19,8 +19,17 @@ const InvoiceForm = () => {
   const navigate = useNavigate();
   const { user } = useContext(UserContext);
 
-  const createInvoice = async (data) => {
+  const createEditInvoice = async (data) => {
     try {
+      if (mode === "edit") {
+        await axios.patch(`${API_URL}/invoices/${data.id}`, data, {
+          withCredentials: true,
+        });
+        
+        navigate("/");
+        return;
+      }
+
       const { data: result } = await axios.post(`${API_URL}/invoices`, { ...data, user_id: user.id }, {
         withCredentials: true,
       });
@@ -42,7 +51,7 @@ const InvoiceForm = () => {
 
   return (
     <div className="invoice-form">
-      <form onSubmit={handleSubmit(createInvoice)}>
+      <form onSubmit={handleSubmit(createEditInvoice)}>
         <div>
           <label htmlFor="amount">Amount</label>
           <input
