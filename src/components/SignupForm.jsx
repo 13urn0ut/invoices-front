@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useContext, useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useErrorBoundary } from "react-error-boundary";
 import UserContext from "../contexts/UserContext";
 
@@ -22,6 +22,8 @@ const SignupForm = () => {
 
   const {showBoundary} = useErrorBoundary();
 
+  const navigate = useNavigate();
+
   const onSubmit = async (data) => {
     console.log(data);
 
@@ -36,6 +38,7 @@ const SignupForm = () => {
 
       setError(null);
       setUser(result.data);
+      navigate("/");
     } catch (err) {
       if (axios.isAxiosError(err)) {
         if (err.response) {

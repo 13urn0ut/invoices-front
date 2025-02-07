@@ -12,7 +12,8 @@
       @apply block w-max transform translate-y-3 translate-x-2 bg-white px-1;
     }
 
-    input {
+    input,
+    select {
       @apply block p-2 border border-gray-300 rounded-md w-full;
     }
 
@@ -38,14 +39,40 @@
   @apply text-red-500 text-xl;
 }
 
-.invoices-header {
-  @apply flex gap-10 items-center w-max mx-auto mt-10;
+.invoices-content {
+  @apply w-max mx-auto mt-10;
 
-  h1 {
-    @apply text-2xl font-bold;
+  .invoices-header {
+    @apply grid grid-cols-3 gap-10 items-center justify-items-center w-full mx-auto px-4;
+
+    & > *:first-child {
+      @apply justify-self-start;
+    }
+
+    & > *:last-child {
+      @apply justify-self-end;
+    }
+
+    h1 {
+      @apply text-2xl font-bold;
+    }
+  }
+
+  .invoices-list {
+    @apply w-max mx-auto mt-10;
+
+    
   }
 }
 
 .card {
-  @apply w-max mx-auto mt-10 text-white flex gap-4 bg-gray-500 p-4 rounded-md shadow-md;
+  @apply w-full mx-auto mt-6 text-white grid grid-cols-[repeat(6,minmax(0,1fr))] justify-items-center gap-2 bg-gray-500 p-4 rounded-md shadow-md;
+
+  & > *:first-child {
+    @apply justify-self-start;
+  }
+
+  & > *:last-child {
+    @apply justify-self-end;
+  }
 }

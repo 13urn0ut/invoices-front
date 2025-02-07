@@ -52,11 +52,16 @@ const Content = () => {
   }, [user, navigate, filter, showBoundary]);
 
   return (
-    <>
+    <section className="invoices-content">
       <header className="invoices-header">
         <div>
           <h1>Invoices</h1>
-          <p>there are {invoices.length || "no"} invoices</p>
+          <p>
+            there{" "}
+            {invoices.length === 1
+              ? `is ${invoices.length || "no"} invoice`
+              : `are ${invoices.length || "no"} invoices`}
+          </p>
         </div>
         <select
           onChange={(e) => setFilter(e.target.value)}
@@ -77,13 +82,13 @@ const Content = () => {
       <div className="error-large mx-auto w-max mt-8">{error}</div>
 
       {!error && (
-        <div>
+        <div className="invoices-list">
           {invoices.map((invoice) => (
             <InvoiceCard key={invoice?.id} invoice={invoice} />
           ))}
         </div>
       )}
-    </>
+    </section>
   );
 };
 
